@@ -22,11 +22,14 @@ class TicTacToeGameState(TwoPlayersAbstractGameState):
     o = -1
 
     def __init__(self, state, next_to_move=1, win=None):
+        # Ensure that the board is 2D square
+        # next_to_move specify that which agent moves
         if len(state.shape) != 2 or state.shape[0] != state.shape[1]:
             raise ValueError("Only 2D square boards allowed")
         self.board = state
         self.board_size = state.shape[0]
         if win is None:
+            # Connect board_size chess will win
             win = self.board_size
         self.win = win
         self.next_to_move = next_to_move
@@ -34,6 +37,8 @@ class TicTacToeGameState(TwoPlayersAbstractGameState):
     @property
     def game_result(self):
         # check if game is over
+        # Not necessarily win needs board_size connection (thought often)
+        # Horizonal or vertical winning
         for i in range(self.board_size - self.win + 1):
             rowsum = np.sum(self.board[i:i+self.win], 0)
             colsum = np.sum(self.board[:,i:i+self.win], 1)
@@ -43,7 +48,9 @@ class TicTacToeGameState(TwoPlayersAbstractGameState):
                 return self.o
         for i in range(self.board_size - self.win + 1):
             for j in range(self.board_size - self.win + 1):
+                # Divide the size of win needed smaller blocks
                 sub = self.board[i:i+self.win,j:j+self.win]
+                # .trace(), study !
                 diag_sum_tl = sub.trace()
                 diag_sum_tr = sub[::-1].trace()        
                 if diag_sum_tl == self.win or diag_sum_tr == self.win:
@@ -86,11 +93,13 @@ class TicTacToeGameState(TwoPlayersAbstractGameState):
             )
         new_board = np.copy(self.board)
         new_board[move.x_coordinate, move.y_coordinate] = move.value
+        # self.board[move.x_coordinate, move.y_coordinate] = move.value
         if self.next_to_move == self.x:
             next_to_move = self.o
         else:
             next_to_move = self.x
         return type(self)(new_board, next_to_move, self.win)
+        # return type(self)(self.board, next_to_move, self.win)
 
     def get_legal_actions(self):
         indices = np.where(self.board == 0)

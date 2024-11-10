@@ -12,7 +12,6 @@ class MonteCarloTreeSearch(object):
 
     def best_action(self, simulations_number=None, total_simulation_seconds=None):
         """
-
         Parameters
         ----------
         simulations_number : int
@@ -23,9 +22,8 @@ class MonteCarloTreeSearch(object):
 
         Returns
         -------
-
         """
-
+        # Number or time, you have to select one limit
         if simulations_number is None :
             assert(total_simulation_seconds is not None)
             end_time = time.time() + total_simulation_seconds
