@@ -1,5 +1,5 @@
 ## What is new about this repo
-Base on the awesome job have done, I add a simple graphical interface to show the process of mcts in Connect 4, aimming to help you understand the working process :) 
+Base on the awesome jobs have done, I add a simple graphical interface to show the process of mcts in Connect 4, aimming to enhance your understanding! :) 
 
 ## mctspy : python implementation of Monte Carlo Tree Search algorithm
 
